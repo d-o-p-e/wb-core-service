@@ -1,6 +1,6 @@
 package com.dope.wb.domain.library;
 
-import com.dope.wb.domain.member.Member;
+import com.dope.wb.domain.user.User;
 import com.dope.wb.specification.ProductCategory;
 import jakarta.persistence.*;
 
@@ -13,8 +13,8 @@ public class Library {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="MEMBER_ID")
-    private Member writer;
+    @JoinColumn(name="USER_ID")
+    private User writer;
 
     private String title;
 
