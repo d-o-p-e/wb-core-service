@@ -1,4 +1,4 @@
-package com.dope.wb.domain;
+package com.dope.wb.domain.member;
 
 import com.dope.wb.specification.Role;
 import jakarta.persistence.Column;

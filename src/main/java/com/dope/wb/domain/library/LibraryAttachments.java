@@ -1,4 +1,4 @@
-package com.dope.wb.domain;
+package com.dope.wb.domain.library;
 
 import jakarta.persistence.*;
 
@@ -11,6 +11,7 @@ public class LibraryAttachments {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LIBRARY_ID")
     private Library library;
 
     private String location;

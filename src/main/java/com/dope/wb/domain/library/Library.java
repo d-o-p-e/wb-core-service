@@ -1,5 +1,6 @@
-package com.dope.wb.domain;
+package com.dope.wb.domain.library;
 
+import com.dope.wb.domain.member.Member;
 import com.dope.wb.specification.ProductCategory;
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.dope.wb.domain;
+package com.dope.wb.domain.product;
 
 import jakarta.persistence.*;
 
@@ -11,6 +11,7 @@ public class ProductImage {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
     private Long view;

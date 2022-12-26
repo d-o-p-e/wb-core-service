@@ -1,4 +1,4 @@
-package com.dope.wb.domain;
+package com.dope.wb.domain.product;
 
 import com.dope.wb.specification.ProductAttachmentType;
 import jakarta.persistence.*;
