@@ -2,12 +2,12 @@ package com.dope.wb.domain.user;
 
 import com.dope.wb.dto.JoinRequestDto;
 import com.dope.wb.specification.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
+@Table(indexes = @Index(name = "email", columnList = "username", unique = true))
 public class User {
 
     @Id
@@ -19,7 +19,7 @@ public class User {
 
     private String password;
 
-    private String name;
+    private String username;
 
     private Role role;
 
@@ -27,10 +27,10 @@ public class User {
 
     }
 
-    private User(String email, String password, String name, Role role) {
+    private User(String email, String password, String username, Role role) {
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.username = username;
         this.role = role;
     }
 
