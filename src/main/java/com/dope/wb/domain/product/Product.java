@@ -2,6 +2,7 @@ package com.dope.wb.domain.product;
 
 import com.dope.wb.specification.ProductCategory;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(
@@ -23,4 +24,12 @@ public class Product {
     private ProductCategory productCategory;
 
     private Long view;
+
+    @Builder
+    public Product(String serial, String content, ProductCategory productCategory) {
+        this.serial = serial;
+        this.content = content;
+        this.productCategory = productCategory;
+        this.view = 0L;
+    }
 }
