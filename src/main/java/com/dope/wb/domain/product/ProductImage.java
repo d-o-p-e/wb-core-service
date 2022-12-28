@@ -1,7 +1,10 @@
 package com.dope.wb.domain.product;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Entity
 public class ProductImage {
 
@@ -15,4 +18,19 @@ public class ProductImage {
     private Product product;
 
     private Long view;
+
+    private String path;
+
+    public ProductImage() {
+    }
+
+    @Builder
+    public ProductImage(Product product) {
+        this.product = product;
+        this.view = 0L;
+    }
+
+    public void setNewFilePath(String path) {
+        this.path = path;
+    }
 }

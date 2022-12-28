@@ -1,6 +1,7 @@
 package com.dope.wb.dto;
 
 import com.dope.wb.specification.ProductCategory;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,4 +19,13 @@ public class ProductUploadRequestDto {
     private List<MultipartFile> images;
 
     private MultipartFile sketch;
+
+    @Builder
+    public ProductUploadRequestDto(String serial, String content, ProductCategory category, List<MultipartFile> images, MultipartFile sketch) {
+        this.serial = serial;
+        this.content = content;
+        this.category = category;
+        this.images = images;
+        this.sketch = sketch;
+    }
 }
