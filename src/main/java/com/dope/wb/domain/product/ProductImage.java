@@ -2,7 +2,6 @@ package com.dope.wb.domain.product;
 
 import jakarta.persistence.Entity;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,8 +13,6 @@ import java.util.Locale;
 
 @Entity
 public class ProductImage extends ProductAttachment {
-
-
 
     @Builder
     public ProductImage(Product product) {
