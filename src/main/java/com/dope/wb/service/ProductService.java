@@ -1,8 +1,8 @@
 package com.dope.wb.service;
 
 import com.dope.wb.domain.product.Product;
-import com.dope.wb.domain.product.ProductImage;
-import com.dope.wb.domain.product.ProductSketch;
+import com.dope.wb.domain.product.attachment.ProductImage;
+import com.dope.wb.domain.product.attachment.ProductSketch;
 import com.dope.wb.dto.ProductUploadRequestDto;
 import com.dope.wb.repository.ProductImageRepository;
 import com.dope.wb.repository.ProductRepository;

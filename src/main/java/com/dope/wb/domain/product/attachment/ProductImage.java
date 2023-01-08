@@ -1,5 +1,6 @@
-package com.dope.wb.domain.product;
+package com.dope.wb.domain.product.attachment;
 
+import com.dope.wb.domain.product.Product;
 import jakarta.persistence.Entity;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
@@ -12,14 +13,14 @@ import java.nio.file.Paths;
 import java.util.Locale;
 
 @Entity
-public class ProductSketch extends ProductAttachment {
+public class ProductImage extends ProductAttachment {
 
     @Builder
-    public ProductSketch(Product product) {
+    public ProductImage(Product product) {
         super(product);
     }
 
-    protected ProductSketch() {
+    protected ProductImage() {
     }
 
     @Override
@@ -27,10 +28,10 @@ public class ProductSketch extends ProductAttachment {
         checkDir(basePath);
         String filename = file.getOriginalFilename();
         String extension = filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
-        if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif") || extension.equals("pdf")) {
+        if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not supported file");
         }
 
-        return Paths.get(basePath + File.separator + product.getSerial() + extension);
+        return Paths.get(basePath + File.separator + product.getSerial() + this.getId() + extension);
     }
 }

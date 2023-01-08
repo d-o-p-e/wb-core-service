@@ -1,5 +1,6 @@
-package com.dope.wb.domain.product;
+package com.dope.wb.domain.product.attachment;
 
+import com.dope.wb.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
