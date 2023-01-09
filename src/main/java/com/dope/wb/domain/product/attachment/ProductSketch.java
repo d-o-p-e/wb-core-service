@@ -27,6 +27,9 @@ public class ProductSketch extends ProductAttachment {
     public Path createFilePath(Product product, MultipartFile file, String basePath) {
         checkDir(basePath);
         String filename = file.getOriginalFilename();
+        if(!filename.contains(".")) {
+            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "invalid extension");
+        }
         String extension = filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
         if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif") || extension.equals("pdf")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not supported file");

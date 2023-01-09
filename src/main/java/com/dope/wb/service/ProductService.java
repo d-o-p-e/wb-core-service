@@ -43,8 +43,12 @@ public class ProductService {
                 .build();
         productRepository.save(product);
 
-        uploadProductImages(product, productUploadRequestDto.getImages());
-        uploadProductSketch(product, productUploadRequestDto.getSketch());
+        if(productUploadRequestDto.getImages() != null) {
+            uploadProductImages(product, productUploadRequestDto.getImages());
+        }
+        if(productUploadRequestDto.getSketch() != null) {
+            uploadProductSketch(product, productUploadRequestDto.getSketch());
+        }
     }
 
     private void uploadProductImages(Product product, List<MultipartFile> images) {
