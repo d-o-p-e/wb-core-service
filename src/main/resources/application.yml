@@ -18,3 +18,9 @@ logging:
     org.hibernate.SQL: debug
 
 apiPrefix: /api
+
+app:
+  resource:
+    product:
+      image: app-resource/product/image/
+      sketch: app-resource/product/sketch/
