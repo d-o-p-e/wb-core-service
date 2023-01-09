@@ -38,4 +38,8 @@ public class Product {
         this.productCategory = productCategory;
         this.view = 0L;
     }
+
+    public void increaseView() {
+        this.view++;
+    }
 }

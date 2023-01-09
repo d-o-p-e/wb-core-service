@@ -1,6 +1,8 @@
 package com.dope.wb.controller;
 
+import com.dope.wb.domain.product.Product;
 import com.dope.wb.dto.ProductUploadRequestDto;
+import com.dope.wb.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +14,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ProductControllerTest {
 
     @Autowired MockMvc mockMvc;
+    @Autowired ProductRepository productRepository;
 
     @Test
     public void ProductCreateSuccess() throws Exception {
@@ -85,5 +89,18 @@ class ProductControllerTest {
         ).andExpect(status().isUnsupportedMediaType());
     }
 
+    @Test
+    public void readProductDetailSuccess() throws Exception {
+        Product product = Product.builder()
+                        .serial("testSerial")
+                        .build();
+        productRepository.save(product);
+        mockMvc.perform(get("/api/product/testSerial")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void noSuchProductException() throws Exception {
+        mockMvc.perform(get("/api/product/9999")).andExpect(status().isNotFound());
+    }
 
 }
