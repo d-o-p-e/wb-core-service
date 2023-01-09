@@ -96,7 +96,7 @@ public class ProductService {
                 .productCategory(product.getProductCategory())
                 .view(product.getView())
                 .imageList(imagePaths)
-                .sketch(productSketch.getPath())
+                .sketch(productSketch == null ? null : productSketch.getPath())
                 .build();
     }
 }
