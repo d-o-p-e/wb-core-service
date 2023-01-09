@@ -85,6 +85,7 @@ public class ProductService {
 
     public ProductDetailResponseDto readProductDetail(String serial) {
         Product product = productRepository.findBySerial(serial).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid serial"));
+        product.increaseView();
         List<ProductImage> images = productImageRepository.findAllByProduct(product);
         List<String> imagePaths = images.stream().map(ProductImage::getPath).toList();
         ProductSketch productSketch = productSketchRepository.findByProduct(product);
