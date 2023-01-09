@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 @Entity
 @Getter
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ProductAttachment {
 
     @Id

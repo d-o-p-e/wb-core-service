@@ -3,6 +3,7 @@ package com.dope.wb.service;
 import com.dope.wb.domain.product.Product;
 import com.dope.wb.domain.product.attachment.ProductImage;
 import com.dope.wb.domain.product.attachment.ProductSketch;
+import com.dope.wb.dto.ProductDetailResponseDto;
 import com.dope.wb.dto.ProductUploadRequestDto;
 import com.dope.wb.repository.ProductImageRepository;
 import com.dope.wb.repository.ProductRepository;
@@ -20,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +58,7 @@ public class ProductService {
             ProductImage productImage = ProductImage.builder().product(product).build();
             productImageRepository.save(productImage);
             Path filePath = productImage.createFilePath(product, image, productImageBaseDir);
-            productImage.setPath(filePath.toAbsolutePath().toString());
+            productImage.setPath(filePath.toString());
 
             try {
                 Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -71,7 +73,7 @@ public class ProductService {
         ProductSketch productSketch = ProductSketch.builder().product(product).build();
         productSketchRepository.save(productSketch);
         Path filePath = productSketch.createFilePath(product, sketch, productSketchBaseDir);
-        productSketch.setPath(filePath.toAbsolutePath().toString());
+        productSketch.setPath(filePath.toString());
 
         try {
             Files.copy(sketch.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -79,5 +81,21 @@ public class ProductService {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public ProductDetailResponseDto readProductDetail(String serial) {
+        Product product = productRepository.findBySerial(serial).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid serial"));
+        List<ProductImage> images = productImageRepository.findAllByProduct(product);
+        List<String> imagePaths = images.stream().map(ProductImage::getPath).toList();
+        ProductSketch productSketch = productSketchRepository.findByProduct(product);
+        return ProductDetailResponseDto.builder()
+                .id(product.getId())
+                .serial(product.getSerial())
+                .content(product.getContent())
+                .productCategory(product.getProductCategory())
+                .view(product.getView())
+                .imageList(imagePaths)
+                .sketch(productSketch.getPath())
+                .build();
     }
 }
