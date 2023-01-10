@@ -2,7 +2,7 @@ package com.dope.wb.domain.user;
 
 import com.dope.wb.dto.JoinRequestDto;
 import com.dope.wb.specification.Role;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 
 @Getter
