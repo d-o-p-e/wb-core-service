@@ -1,6 +1,6 @@
 package com.dope.wb.domain.library;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class LibraryAttachments {

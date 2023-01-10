@@ -1,7 +1,7 @@
 package com.dope.wb.domain.product;
 
 import com.dope.wb.specification.ProductCategory;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 

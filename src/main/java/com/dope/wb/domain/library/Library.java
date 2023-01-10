@@ -2,7 +2,7 @@ package com.dope.wb.domain.library;
 
 import com.dope.wb.domain.user.User;
 import com.dope.wb.specification.ProductCategory;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Library {

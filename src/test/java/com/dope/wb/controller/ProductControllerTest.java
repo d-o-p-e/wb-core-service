@@ -10,9 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
+@Transactional
 class ProductControllerTest {
 
     @Autowired MockMvc mockMvc;
@@ -43,7 +44,7 @@ class ProductControllerTest {
                 .serial("serial")
                 .content("content")
                 .category(null)
-                .images(new ArrayList<>(List.of(testImageFile)))
+                .images(Collections.singletonList(testImageFile))
                 .sketch(testPdfFile)
                 .build();
 
@@ -75,7 +76,7 @@ class ProductControllerTest {
                 .serial("serial")
                 .content("content")
                 .category(null)
-                .images(new ArrayList<>(List.of(testImageFile)))
+                .images(Collections.singletonList(testImageFile))
                 .sketch(testPdfFile)
                 .build();
 
