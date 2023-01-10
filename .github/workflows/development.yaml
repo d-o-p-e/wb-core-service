@@ -1,8 +1,8 @@
 name: Development Server Deployment
-on: push
-  # push:
-    # branches:
-    #   - "main"
+on:
+  push:
+    branches:
+      - "main"
 jobs:
   build:
     name: Build
@@ -15,7 +15,7 @@ jobs:
       - name: Build Spring project to a WAR file
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
-          git checkout configure-deployment
+          git checkout main
           ./gradlew bootWar
   deploy:
     needs: build
