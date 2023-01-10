@@ -15,7 +15,6 @@ jobs:
       - name: Build react project to static files
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
-#          git checkout main
           git checkout configure-deployment
           ./gradlew build
   deploy:
