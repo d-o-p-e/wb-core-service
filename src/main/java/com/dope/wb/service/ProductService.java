@@ -8,7 +8,7 @@ import com.dope.wb.dto.ProductUploadRequestDto;
 import com.dope.wb.repository.ProductImageRepository;
 import com.dope.wb.repository.ProductRepository;
 import com.dope.wb.repository.ProductSketchRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -87,7 +87,7 @@ public class ProductService {
         Product product = productRepository.findBySerial(serial).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid serial"));
         product.increaseView();
         List<ProductImage> images = productImageRepository.findAllByProduct(product);
-        List<String> imagePaths = images.stream().map(ProductImage::getPath).toList();
+        List<String> imagePaths = images.stream().map(ProductImage::getPath).collect(Collectors.toList());
         ProductSketch productSketch = productSketchRepository.findByProduct(product);
         return ProductDetailResponseDto.builder()
                 .id(product.getId())
