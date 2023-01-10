@@ -12,7 +12,7 @@ jobs:
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git pull
-      - name: Build react project to static files
+      - name: Build spring project to WAR file
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git checkout configure-deployment
