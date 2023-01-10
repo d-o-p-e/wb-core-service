@@ -12,11 +12,11 @@ jobs:
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git pull
-      - name: Build spring project to WAR file
+      - name: Build Spring project to a WAR file
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git checkout configure-deployment
-          ./gradlew build
+          ./gradlew bootWar
   deploy:
     needs: build
     name: Deploy

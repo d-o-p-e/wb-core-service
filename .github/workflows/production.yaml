@@ -23,11 +23,11 @@ jobs:
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git pull
-      - name: Build react project to static files
+      - name: Build Spring project to a WAR file
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git checkout production
-          ./gradlew build
+          ./gradlew bootWar
   deploy:
     needs: build
     name: 🎉 Deploy
