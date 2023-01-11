@@ -44,5 +44,5 @@ jobs:
         username: ${{ secrets.PRODSERVER_USERNAME }}
         password: ${{ secrets.PRODSERVER_PASSWORD }}
         local-dir: /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/
-        server-dir: ./tomcat/webapps/ROOT/
+        server-dir: ./tomcat/webapps/
         dangerous-clean-slate: true
