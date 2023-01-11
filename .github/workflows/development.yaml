@@ -1,0 +1,32 @@
+name: Development Server Deployment
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build:
+    name: Build
+    runs-on: self-hosted
+    steps:
+      - name: update local files
+        run: |
+          cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
+          git pull
+      - name: Build Spring project to a WAR file
+        run: |
+          cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
+          git checkout main
+          ./gradlew build
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: self-hosted
+    steps:
+      - name: Copy the build product to directory "api" of tomcat webapps routes
+        run: |
+          echo ${{ secrets.DEVSERVER_PASSWORD }} | sudo -S rm -rf /home/${{ secrets.DEVSERVER_USERNAME }}/tomcat/webapps/api
+          sudo cp -R /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/api.war /home/${{ secrets.DEVSERVER_USERNAME }}/tomcat/webapps
+      - name: Restart tomcat
+        run: |
+          echo ${{ secrets.DEVSERVER_PASSWORD }} | sudo -S /home/${{ secrets.DEVSERVER_USERNAME }}/tomcat/bin/shutdown.sh
+          sudo /home/${{ secrets.DEVSERVER_USERNAME }}/tomcat/bin/startup.sh

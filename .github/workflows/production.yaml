@@ -1,0 +1,47 @@
+name: Build Production Web App
+on: 
+  pull_request:
+    types:
+    - closed
+    branches:
+    - production
+jobs:
+  if_merged:
+    name: Check if the pull request was merged
+    if: github.event.pull_request.merged == true
+    runs-on: self-hosted
+    steps:
+      - name: Check if PR was merged.
+        run: |
+          echo "PR WAS MERGED TO PRODUCTION. START DEPLOYMENT."
+  build:
+    needs: if_merged
+    name: Build
+    runs-on: self-hosted
+    steps:
+      - name: update local files
+        run: |
+          cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
+          git pull
+      - name: Build Spring project to a WAR file
+        run: |
+          cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
+          git checkout production
+          ./gradlew build
+  deploy:
+    needs: build
+    name: 🎉 Deploy
+    runs-on: self-hosted
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: ${{ secrets.PRODSERVER_HOST }}
+        username: ${{ secrets.PRODSERVER_USERNAME }}
+        password: ${{ secrets.PRODSERVER_PASSWORD }}
+        local-dir: /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/api.war
+        server-dir: ./tomcat/webapps/ROOT/
+        dangerous-clean-slate: true

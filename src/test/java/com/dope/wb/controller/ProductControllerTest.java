@@ -1,6 +1,6 @@
 package com.dope.wb.controller;
 
-import com.dope.wb.domain.product.Product;
+import com.dope.wb.domain.board.product.Product;
 import com.dope.wb.dto.ProductUploadRequestDto;
 import com.dope.wb.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
