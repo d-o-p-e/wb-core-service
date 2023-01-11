@@ -16,7 +16,7 @@ class AttachmentTest {
 
     @Test
     public void createFilePathSuccess() {
-        ProductImage productImage = new ProductImage();
+        ProductImage productImage = ProductImage.builder().build();
         Product product = Product.builder()
                 .serial("serial")
                 .content("content")
@@ -25,12 +25,12 @@ class AttachmentTest {
         MultipartFile mockMultipartFile = new MockMultipartFile("file", "test.jpg", "content-type", (byte[]) null);
         Path filePath = productImage.createFilePath(product, mockMultipartFile, testPath);
 
-        Assertions.assertEquals(filePath.toString(), "app-resource/test/serialnull.jpg");
+        Assertions.assertEquals("app-resource/test/serialnull.jpg", filePath.toString());
     }
 
     @Test
     public void invalidFileExtensionException() {
-        ProductImage productImage = new ProductImage();
+        ProductImage productImage = ProductImage.builder().build();
         Product product = Product.builder()
                 .serial("serial")
                 .content("content")
@@ -45,7 +45,7 @@ class AttachmentTest {
 
     @Test
     public void unsupportedFileExtensionException() {
-        ProductImage productImage = new ProductImage();
+        ProductImage productImage = ProductImage.builder().build();
         Product product = Product.builder()
                 .serial("serial")
                 .content("content")
