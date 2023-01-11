@@ -4,12 +4,16 @@ import com.dope.wb.domain.board.product.Product;
 
 import javax.persistence.*;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Getter
@@ -52,5 +56,22 @@ public abstract class Attachment {
         }
     }
 
-    public abstract Path createFilePath(Product product, MultipartFile file, String basePath);
+    public String getExtension(MultipartFile file) {
+        String filename = file.getOriginalFilename();
+        if(!filename.contains(".")) {
+            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "invalid extension");
+        }
+        return filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
+    }
+
+    abstract public Path combinePath(String basePath, Product product, String extension);
+
+    abstract public void validateSupportedExtension(String extension);
+
+    public Path createFilePath(Product product, MultipartFile file, String basePath) {
+        checkDir(basePath);
+        String extension = getExtension(file);
+        validateSupportedExtension(extension);
+        return combinePath(basePath, product, extension);
+    }
 }

@@ -10,31 +10,32 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class ProductSketch extends Attachment {
+
+    static final List<String> validExtension = Arrays.asList(".pdf");
+
+    protected ProductSketch() {
+    }
 
     @Builder
     public ProductSketch(Product product) {
         super(product);
     }
 
-    protected ProductSketch() {
+    @Override
+    public Path combinePath(String basePath, Product product, String extension) {
+        return Paths.get(basePath + File.separator + product.getSerial() + extension);
     }
 
     @Override
-    public Path createFilePath(Product product, MultipartFile file, String basePath) {
-        checkDir(basePath);
-        String filename = file.getOriginalFilename();
-        if(!filename.contains(".")) {
-            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "invalid extension");
+    public void validateSupportedExtension(String extension) {
+        if (!validExtension.contains(extension)) {
+            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "unsupported file");
         }
-        String extension = filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
-        if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif") || extension.equals("pdf")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not supported file");
-        }
-
-        return Paths.get(basePath + File.separator + product.getSerial() + extension);
     }
+
 }

@@ -5,37 +5,37 @@ import com.dope.wb.domain.board.product.Product;
 import javax.persistence.*;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class ProductImage extends Attachment {
+
+    static final List<String> validExtension = Arrays.asList(".jpg", ".png", ".gif");
+
+    protected ProductImage() {
+    }
 
     @Builder
     public ProductImage(Product product) {
         super(product);
     }
 
-    protected ProductImage() {
+    @Override
+    public Path combinePath(String basePath, Product product, String extension) {
+        return Paths.get(basePath + File.separator + product.getSerial() + product.getId() + extension);
     }
 
     @Override
-    public Path createFilePath(Product product, MultipartFile file, String basePath) {
-        checkDir(basePath);
-        String filename = file.getOriginalFilename();
-        if(!filename.contains(".")) {
-            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "invalid extension");
-        }
-        String extension = filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
-        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".gif"))) {
+    public void validateSupportedExtension(String extension) {
+        if (!validExtension.contains(extension)) {
             throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "unsupported file");
         }
-
-        return Paths.get(basePath + File.separator + product.getSerial() + this.getId() + extension);
     }
+
 }
