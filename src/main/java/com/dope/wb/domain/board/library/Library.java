@@ -1,4 +1,4 @@
-package com.dope.wb.domain.library;
+package com.dope.wb.domain.board.library;
 
 import com.dope.wb.domain.user.User;
 import com.dope.wb.specification.ProductCategory;

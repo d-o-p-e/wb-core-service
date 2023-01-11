@@ -1,4 +1,4 @@
-package com.dope.wb.domain.library;
+package com.dope.wb.domain.board.library;
 
 import javax.persistence.*;
 

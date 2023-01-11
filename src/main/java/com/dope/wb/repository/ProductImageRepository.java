@@ -1,7 +1,7 @@
 package com.dope.wb.repository;
 
-import com.dope.wb.domain.product.Product;
-import com.dope.wb.domain.product.attachment.ProductImage;
+import com.dope.wb.domain.board.product.Product;
+import com.dope.wb.domain.board.attachment.ProductImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
