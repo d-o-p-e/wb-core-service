@@ -1,6 +1,7 @@
 package com.dope.wb.domain.product.attachment;
 
-import com.dope.wb.domain.product.Product;
+import com.dope.wb.domain.board.product.Product;
+import com.dope.wb.domain.board.attachment.ProductImage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;

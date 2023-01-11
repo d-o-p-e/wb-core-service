@@ -1,6 +1,6 @@
-package com.dope.wb.domain.product.attachment;
+package com.dope.wb.domain.board.attachment;
 
-import com.dope.wb.domain.product.Product;
+import com.dope.wb.domain.board.product.Product;
 import javax.persistence.*;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.Locale;
 
 @Entity
-public class ProductSketch extends ProductAttachment {
+public class ProductSketch extends Attachment {
 
     @Builder
     public ProductSketch(Product product) {

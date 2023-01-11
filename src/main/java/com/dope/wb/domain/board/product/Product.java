@@ -1,4 +1,4 @@
-package com.dope.wb.domain.product;
+package com.dope.wb.domain.board.product;
 
 import com.dope.wb.specification.ProductCategory;
 import javax.persistence.*;

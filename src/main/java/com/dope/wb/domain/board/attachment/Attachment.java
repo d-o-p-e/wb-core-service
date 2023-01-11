@@ -1,6 +1,7 @@
-package com.dope.wb.domain.product.attachment;
+package com.dope.wb.domain.board.attachment;
 
-import com.dope.wb.domain.product.Product;
+import com.dope.wb.domain.board.product.Product;
+
 import javax.persistence.*;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,7 @@ import java.nio.file.Paths;
 @Entity
 @Getter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class ProductAttachment {
+public abstract class Attachment {
 
     @Id
     @GeneratedValue
@@ -28,10 +29,10 @@ public abstract class ProductAttachment {
 
     private String path;
 
-    protected ProductAttachment() {
+    protected Attachment() {
     }
 
-    public ProductAttachment(Product product) {
+    public Attachment(Product product) {
         this.product = product;
         this.view = 0L;
     }
