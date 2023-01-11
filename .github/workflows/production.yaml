@@ -28,6 +28,7 @@ jobs:
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git checkout production
           ./gradlew build
+          rm /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/api-plain.war
   deploy:
     needs: build
     name: 🎉 Deploy
@@ -42,6 +43,6 @@ jobs:
         server: ${{ secrets.PRODSERVER_HOST }}
         username: ${{ secrets.PRODSERVER_USERNAME }}
         password: ${{ secrets.PRODSERVER_PASSWORD }}
-        local-dir: /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/api.war
+        local-dir: /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service/build/libs/
         server-dir: ./tomcat/webapps/ROOT/
         dangerous-clean-slate: true
