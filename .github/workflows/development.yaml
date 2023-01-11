@@ -16,7 +16,7 @@ jobs:
         run: |
           cd /home/${{ secrets.DEVSERVER_USERNAME }}/wb-core-service
           git checkout main
-          ./gradlew bootWar
+          ./gradlew build
   deploy:
     needs: build
     name: Deploy
