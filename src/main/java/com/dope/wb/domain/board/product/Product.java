@@ -1,5 +1,7 @@
 package com.dope.wb.domain.board.product;
 
+import com.dope.wb.domain.board.Board;
+import com.dope.wb.domain.user.User;
 import com.dope.wb.specification.ProductCategory;
 import javax.persistence.*;
 import lombok.Builder;
@@ -12,20 +14,20 @@ import lombok.Getter;
                 @Index(name="idx_product_serial",columnList = "serial")
         }
 )
-public class Product {
+public class Product extends Board {
 
     @Id
     @GeneratedValue
     @Column(name = "PRODUCT_ID")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
+    private User writer;
+
     private String serial;
 
-    private String content;
-
     private ProductCategory productCategory;
-
-    private Long view;
 
     public Product() {
 
@@ -39,7 +41,4 @@ public class Product {
         this.view = 0L;
     }
 
-    public void increaseView() {
-        this.view++;
-    }
 }

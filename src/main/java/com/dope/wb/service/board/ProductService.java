@@ -1,4 +1,4 @@
-package com.dope.wb.service;
+package com.dope.wb.service.board;
 
 import com.dope.wb.domain.board.product.Product;
 import com.dope.wb.domain.board.attachment.ProductImage;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductService implements BoardService {
 
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
@@ -36,8 +36,9 @@ public class ProductService {
     @Value("${app.resource.product.sketch}")
     private String productSketchBaseDir;
 
+    @Override
     @Transactional
-    public void uploadNewProduct(ProductUploadRequestDto productUploadRequestDto) {
+    public void create(ProductUploadRequestDto productUploadRequestDto) {
         Product product = Product.builder()
                 .serial(productUploadRequestDto.getSerial())
                 .content(productUploadRequestDto.getContent())
@@ -51,6 +52,34 @@ public class ProductService {
         if(productUploadRequestDto.getSketch() != null) {
             uploadProductSketch(product, productUploadRequestDto.getSketch());
         }
+    }
+
+    @Override
+    public ProductDetailResponseDto readDetail(String serial) {
+        Product product = productRepository.findBySerial(serial).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid serial"));
+        product.increaseView();
+        List<ProductImage> images = productImageRepository.findAllByProduct(product);
+        List<String> imagePaths = images.stream().map(ProductImage::getPath).collect(Collectors.toList());
+        ProductSketch productSketch = productSketchRepository.findByProduct(product);
+        return ProductDetailResponseDto.builder()
+                .id(product.getId())
+                .serial(product.getSerial())
+                .content(product.getContent())
+                .productCategory(product.getProductCategory())
+                .view(product.getView())
+                .imageList(imagePaths)
+                .sketch(productSketch == null ? null : productSketch.getPath())
+                .build();
+    }
+
+    @Override
+    public void update(String serial) {
+
+    }
+
+    @Override
+    public void delete(String serial) {
+
     }
 
     private void uploadProductImages(Product product, List<MultipartFile> images) {
@@ -83,20 +112,5 @@ public class ProductService {
         }
     }
 
-    public ProductDetailResponseDto readProductDetail(String serial) {
-        Product product = productRepository.findBySerial(serial).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid serial"));
-        product.increaseView();
-        List<ProductImage> images = productImageRepository.findAllByProduct(product);
-        List<String> imagePaths = images.stream().map(ProductImage::getPath).collect(Collectors.toList());
-        ProductSketch productSketch = productSketchRepository.findByProduct(product);
-        return ProductDetailResponseDto.builder()
-                .id(product.getId())
-                .serial(product.getSerial())
-                .content(product.getContent())
-                .productCategory(product.getProductCategory())
-                .view(product.getView())
-                .imageList(imagePaths)
-                .sketch(productSketch == null ? null : productSketch.getPath())
-                .build();
-    }
+
 }

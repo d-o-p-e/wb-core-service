@@ -2,7 +2,7 @@ package com.dope.wb.controller;
 
 import com.dope.wb.dto.ProductDetailResponseDto;
 import com.dope.wb.dto.ProductUploadRequestDto;
-import com.dope.wb.service.ProductService;
+import com.dope.wb.service.board.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
