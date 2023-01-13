@@ -1,5 +1,7 @@
 package com.dope.wb.controller;
 
+import com.dope.wb.domain.board.library.Library;
+import com.dope.wb.domain.board.product.Product;
 import com.dope.wb.repository.LibraryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.transaction.Transactional;
 import java.io.FileInputStream;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,7 +26,7 @@ public class LibraryControllerTest {
     @Autowired LibraryRepository libraryRepository;
 
     @Test
-    public void ProductCreateSuccess() throws Exception {
+    public void LibraryCreateSuccess() throws Exception {
         MockMultipartFile testImageFile = new MockMultipartFile(
                 "attachments",
                 "test.png",
@@ -37,5 +40,14 @@ public class LibraryControllerTest {
                         .param("content", "content")
                         .param("category", (String) null)
         ).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void readProductDetailSuccess() throws Exception {
+        Library library = Library.builder()
+                .title("title")
+                .build();
+        libraryRepository.save(library);
+        mockMvc.perform(get("/library/" + library.getId())).andExpect(status().isOk());
     }
 }
