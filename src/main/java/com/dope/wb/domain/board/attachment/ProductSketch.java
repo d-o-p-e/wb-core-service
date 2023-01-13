@@ -4,7 +4,6 @@ import com.dope.wb.domain.board.product.Product;
 import javax.persistence.*;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
