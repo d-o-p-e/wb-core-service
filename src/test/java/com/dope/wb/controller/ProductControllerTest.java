@@ -1,7 +1,7 @@
 package com.dope.wb.controller;
 
 import com.dope.wb.domain.board.product.Product;
-import com.dope.wb.dto.ProductUploadRequestDto;
+import com.dope.wb.dto.ProductCreateRequestDto;
 import com.dope.wb.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ class ProductControllerTest {
                 "application/x-pdf",
                 new FileInputStream("app-resource/test/product/request/test.pdf"));
 
-        ProductUploadRequestDto productUploadRequestDto = ProductUploadRequestDto.builder()
+        ProductCreateRequestDto productCreateRequestDto = ProductCreateRequestDto.builder()
                 .serial("serial")
                 .content("content")
                 .category(null)
@@ -72,7 +72,7 @@ class ProductControllerTest {
                 "application/x-pdf",
                 new FileInputStream("app-resource/test/product/request/test.pdf"));
 
-        ProductUploadRequestDto productUploadRequestDto = ProductUploadRequestDto.builder()
+        ProductCreateRequestDto productCreateRequestDto = ProductCreateRequestDto.builder()
                 .serial("serial")
                 .content("content")
                 .category(null)

@@ -1,8 +1,8 @@
 package com.dope.wb.controller;
 
 import com.dope.wb.dto.ProductDetailResponseDto;
-import com.dope.wb.dto.ProductUploadRequestDto;
-import com.dope.wb.service.board.ProductService;
+import com.dope.wb.dto.ProductCreateRequestDto;
+import com.dope.wb.service.board.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "product")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
     @PostMapping
-    public ResponseEntity<Void> createProduct(ProductUploadRequestDto productUploadRequestDto) {
-        productService.create(productUploadRequestDto);
+    public ResponseEntity<Void> createProduct(ProductCreateRequestDto productCreateRequestDto) {
+        productService.create(productCreateRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
