@@ -40,14 +40,6 @@ class ProductControllerTest {
                 "application/x-pdf",
                 new FileInputStream("app-resource/test/product/request/test.pdf"));
 
-        ProductCreateRequestDto productCreateRequestDto = ProductCreateRequestDto.builder()
-                .serial("serial")
-                .content("content")
-                .category(null)
-                .images(Collections.singletonList(testImageFile))
-                .sketch(testPdfFile)
-                .build();
-
         mockMvc.perform(
                 multipart("/product")
                 .file(testImageFile)
@@ -71,14 +63,6 @@ class ProductControllerTest {
                 "test",
                 "application/x-pdf",
                 new FileInputStream("app-resource/test/product/request/test.pdf"));
-
-        ProductCreateRequestDto productCreateRequestDto = ProductCreateRequestDto.builder()
-                .serial("serial")
-                .content("content")
-                .category(null)
-                .images(Collections.singletonList(testImageFile))
-                .sketch(testPdfFile)
-                .build();
 
         mockMvc.perform(
                 multipart("/product")

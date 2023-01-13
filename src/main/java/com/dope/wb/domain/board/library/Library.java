@@ -4,10 +4,12 @@ import com.dope.wb.domain.board.Board;
 import com.dope.wb.domain.user.User;
 import com.dope.wb.specification.LibraryCategory;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Library extends Board {
 
     @Id

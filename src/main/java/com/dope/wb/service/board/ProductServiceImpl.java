@@ -106,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void uploadProductSketch(Product product, MultipartFile sketch) {
-        ProductSketch productSketch = ProductSketch.builder().product(product).build();
+        ProductSketch productSketch = new ProductSketch(product);
         productSketchRepository.save(productSketch);
         Path filePath = productSketch.createFilePath(product.getSerial(), sketch, productSketchBaseDir);
         productSketch.setPath(filePath.toString());
