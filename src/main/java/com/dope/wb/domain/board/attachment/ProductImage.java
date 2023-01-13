@@ -3,6 +3,8 @@ package com.dope.wb.domain.board.attachment;
 import com.dope.wb.domain.board.product.Product;
 
 import javax.persistence.*;
+
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Getter
 public class ProductImage extends Attachment {
 
     static final List<String> validExtension = Arrays.asList(".jpg", ".png", ".gif");

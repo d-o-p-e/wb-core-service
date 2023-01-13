@@ -29,7 +29,7 @@ public class ProductSketch extends Attachment {
 
     @Override
     public Path combinePath(String basePath, String specification, String extension) {
-        return Paths.get(basePath + File.separator + product.getSerial() + extension);
+        return Paths.get(basePath + File.separator + specification + extension);
     }
 
     @Override

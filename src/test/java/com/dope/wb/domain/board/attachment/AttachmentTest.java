@@ -1,7 +1,6 @@
 package com.dope.wb.domain.board.attachment;
 
 import com.dope.wb.domain.board.product.Product;
-import com.dope.wb.domain.board.attachment.ProductImage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -16,16 +15,16 @@ class AttachmentTest {
 
     @Test
     public void createFilePathSuccess() {
-        ProductImage productImage = new ProductImage();
+        ProductSketch productSketch = new ProductSketch();
         Product product = Product.builder()
                 .serial("serial")
                 .content("content")
                 .productCategory(null)
                 .build();
-        MultipartFile mockMultipartFile = new MockMultipartFile("file", "test.jpg", "content-type", (byte[]) null);
-        Path filePath = productImage.createFilePath(product.getSerial(), mockMultipartFile, testPath);
+        MultipartFile mockMultipartFile = new MockMultipartFile("file", "test.pdf", "content-type", (byte[]) null);
+        Path filePath = productSketch.createFilePath(product.getSerial(), mockMultipartFile, testPath);
 
-        Assertions.assertEquals("app-resource/test/serialnull.jpg", filePath.toString());
+        Assertions.assertEquals("app-resource/test/serial.pdf", filePath.toString());
     }
 
     @Test

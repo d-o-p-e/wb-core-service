@@ -9,7 +9,7 @@ public interface LibraryService {
 
     void create(LibraryCreateRequestDto libraryCreateRequestDto);
 
-    LibraryDetailResponseDto readDetail(String serial);
+    LibraryDetailResponseDto readDetail(Long libraryId);
 
     void update(String serial);
 

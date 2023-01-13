@@ -1,7 +1,5 @@
 package com.dope.wb.domain.board.attachment;
 
-import com.dope.wb.domain.board.product.Product;
-
 import javax.persistence.*;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
