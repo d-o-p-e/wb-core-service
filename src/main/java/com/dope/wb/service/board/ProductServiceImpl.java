@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
     private String productSketchBaseDir;
 
     @Transactional
+    @Override
     public void create(ProductCreateRequestDto productCreateRequestDto) {
         Product product = Product.builder()
                 .serial(productCreateRequestDto.getSerial())
@@ -90,9 +91,9 @@ public class ProductServiceImpl implements ProductService {
 
     private void uploadProductImages(Product product, List<MultipartFile> images) {
         for (MultipartFile image : images) {
-            ProductImage productImage = ProductImage.builder().product(product).build();
+            ProductImage productImage = new ProductImage(product);
             productImageRepository.save(productImage);
-            Path filePath = productImage.createFilePath(product, image, productImageBaseDir);
+            Path filePath = productImage.createFilePath(product.getSerial(), image, productImageBaseDir);
             productImage.setPath(filePath.toString());
 
             try {
@@ -107,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
     private void uploadProductSketch(Product product, MultipartFile sketch) {
         ProductSketch productSketch = ProductSketch.builder().product(product).build();
         productSketchRepository.save(productSketch);
-        Path filePath = productSketch.createFilePath(product, sketch, productSketchBaseDir);
+        Path filePath = productSketch.createFilePath(product.getSerial(), sketch, productSketchBaseDir);
         productSketch.setPath(filePath.toString());
 
         try {

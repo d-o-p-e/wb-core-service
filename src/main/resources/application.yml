@@ -24,3 +24,5 @@ app:
     product:
       image: app-resource/product/image/
       sketch: app-resource/product/sketch/
+    library:
+      attachment: app-resource/library/attachment/
