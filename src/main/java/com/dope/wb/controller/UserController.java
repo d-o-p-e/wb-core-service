@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "${apiPrefix}/user")
+@RequestMapping(path = "user")
 @RequiredArgsConstructor
 public class UserController {
 
