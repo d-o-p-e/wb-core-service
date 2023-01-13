@@ -49,7 +49,7 @@ class ProductControllerTest {
                 .build();
 
         mockMvc.perform(
-                multipart("/api/product")
+                multipart("/product")
                 .file(testImageFile)
                 .file(testPdfFile)
                 .param("serial", "serial")
@@ -81,7 +81,7 @@ class ProductControllerTest {
                 .build();
 
         mockMvc.perform(
-                multipart("/api/product")
+                multipart("/product")
                         .file(testImageFile)
                         .file(testPdfFile)
                         .param("serial", "serial")
@@ -96,12 +96,12 @@ class ProductControllerTest {
                         .serial("testSerial")
                         .build();
         productRepository.save(product);
-        mockMvc.perform(get("/api/product/testSerial")).andExpect(status().isOk());
+        mockMvc.perform(get("/product/testSerial")).andExpect(status().isOk());
     }
 
     @Test
     public void noSuchProductException() throws Exception {
-        mockMvc.perform(get("/api/product/9999")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/product/9999")).andExpect(status().isNotFound());
     }
 
 }
