@@ -1,5 +1,6 @@
 package com.dope.wb.service.board;
 
+import com.dope.wb.domain.board.attachment.Attachment;
 import com.dope.wb.domain.board.attachment.LibraryAttachment;
 import com.dope.wb.domain.board.attachment.ProductImage;
 import com.dope.wb.domain.board.library.Library;
@@ -23,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +69,18 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public LibraryDetailResponseDto readDetail(String serial) {
-        return null;
+    public LibraryDetailResponseDto readDetail(Long libraryId) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "post not found"));
+        library.increaseView();
+        List<LibraryAttachment> attachments = libraryAttachmentRepository.findAllByLibrary(library);
+        List<String> attachmentPaths = attachments.stream().map(LibraryAttachment::getPath).collect(Collectors.toList());
+        return LibraryDetailResponseDto.builder()
+                .id(library.getId())
+                .title(library.getTitle())
+                .content(library.getContent())
+                .view(library.getView())
+                .attachmentList(attachmentPaths)
+                .build();
     }
 
     @Override

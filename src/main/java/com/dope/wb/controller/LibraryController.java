@@ -22,7 +22,7 @@ public class LibraryController {
     }
 
     @GetMapping("/{libraryId}")
-    public ResponseEntity<LibraryDetailResponseDto> readProduct(@PathVariable String libraryId) {
+    public ResponseEntity<LibraryDetailResponseDto> readProduct(@PathVariable Long libraryId) {
         LibraryDetailResponseDto libraryDetailResponseDto = libraryService.readDetail(libraryId);
         return ResponseEntity.ok().body(libraryDetailResponseDto);
     }
