@@ -24,20 +24,11 @@ public abstract class Attachment {
     @Column(name = "PRODUCT_IMAGE_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
-
-    private Long view;
+    private Long view = 0L;
 
     private String path;
 
     protected Attachment() {
-    }
-
-    public Attachment(Product product) {
-        this.product = product;
-        this.view = 0L;
     }
 
     public void setPath(String path) {
@@ -63,14 +54,14 @@ public abstract class Attachment {
         return filename.substring(filename.indexOf(".")).toLowerCase(Locale.ROOT);
     }
 
-    abstract public Path combinePath(String basePath, Product product, String extension);
+    abstract public Path combinePath(String basePath, String specification, String extension);
 
     abstract public void validateSupportedExtension(String extension);
 
-    public Path createFilePath(Product product, MultipartFile file, String basePath) {
+    public Path createFilePath(String specification, MultipartFile file, String basePath) {
         checkDir(basePath);
         String extension = getExtension(file);
         validateSupportedExtension(extension);
-        return combinePath(basePath, product, extension);
+        return combinePath(basePath, specification, extension);
     }
 }

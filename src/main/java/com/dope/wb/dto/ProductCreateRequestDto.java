@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Getter
-public class ProductUploadRequestDto {
+public class ProductCreateRequestDto {
 
     private String serial;
 
@@ -21,7 +21,7 @@ public class ProductUploadRequestDto {
     private MultipartFile sketch;
 
     @Builder
-    public ProductUploadRequestDto(String serial, String content, ProductCategory category, List<MultipartFile> images, MultipartFile sketch) {
+    public ProductCreateRequestDto(String serial, String content, ProductCategory category, List<MultipartFile> images, MultipartFile sketch) {
         this.serial = serial;
         this.content = content;
         this.category = category;

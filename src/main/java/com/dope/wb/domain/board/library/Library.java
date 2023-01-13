@@ -2,11 +2,14 @@ package com.dope.wb.domain.board.library;
 
 import com.dope.wb.domain.board.Board;
 import com.dope.wb.domain.user.User;
+import com.dope.wb.specification.LibraryCategory;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Library extends Board {
 
     @Id
@@ -20,16 +23,19 @@ public class Library extends Board {
 
     private String title;
 
+    private LibraryCategory category;
+
     public Library() {
 
     }
 
     @Builder
-    public Library(Long id, User writer, String title, String content) {
+    public Library(Long id, User writer, String title, String content, LibraryCategory category) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
+        this.category = category;
         this.view = 0L;
     }
 

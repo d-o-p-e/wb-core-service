@@ -1,9 +1,11 @@
 package com.dope.wb.domain.board.attachment;
 
-import com.dope.wb.domain.board.product.Product;
-import lombok.Builder;
+import com.dope.wb.domain.board.library.Library;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,17 +16,20 @@ public class LibraryAttachment extends Attachment{
 
     static final List<String> validExtension = null;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LIBRARY_ID")
+    private Library library;
+
     protected LibraryAttachment() {
     }
 
-    @Builder
-    public LibraryAttachment(Product product) {
-        super(product);
+    public LibraryAttachment(Library library) {
+        this.library = library;
     }
 
     @Override
-    public Path combinePath(String basePath, Product product, String extension) {
-        return Paths.get(basePath + File.separator + product.getSerial() + this.getId() + extension);
+    public Path combinePath(String basePath, String specification, String extension) {
+        return Paths.get(basePath + File.separator + specification + this.getId() + extension);
     }
 
     @Override

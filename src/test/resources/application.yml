@@ -23,10 +23,10 @@ logging:
   level:
     org.hibernate.SQL: debug
 
-apiPrefix: /api
-
 app:
   resource:
     product:
       image: app-resource/test/product/image/
       sketch: app-resource/test/product/sketch/
+    library:
+      attachment: app-resource/test/library/attachment/

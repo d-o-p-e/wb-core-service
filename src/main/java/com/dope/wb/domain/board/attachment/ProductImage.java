@@ -3,7 +3,6 @@ package com.dope.wb.domain.board.attachment;
 import com.dope.wb.domain.board.product.Product;
 
 import javax.persistence.*;
-import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,16 +17,19 @@ public class ProductImage extends Attachment {
 
     static final List<String> validExtension = Arrays.asList(".jpg", ".png", ".gif");
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
+
     protected ProductImage() {
     }
 
-    @Builder
     public ProductImage(Product product) {
-        super(product);
+        this.product = product;
     }
 
     @Override
-    public Path combinePath(String basePath, Product product, String extension) {
+    public Path combinePath(String basePath, String specification, String extension) {
         return Paths.get(basePath + File.separator + product.getSerial() + product.getId() + extension);
     }
 
