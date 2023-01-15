@@ -12,15 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
 
-@Entity
 @Getter
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public abstract class Attachment {
-
-    @Id
-    @GeneratedValue
-    @Column(name = "PRODUCT_IMAGE_ID")
-    private Long id;
 
     private Long view = 0L;
 

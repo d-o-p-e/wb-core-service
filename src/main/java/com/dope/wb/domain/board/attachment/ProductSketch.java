@@ -2,6 +2,8 @@ package com.dope.wb.domain.board.attachment;
 
 import com.dope.wb.domain.board.product.Product;
 import javax.persistence.*;
+
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -11,10 +13,16 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 @Entity
 public class ProductSketch extends Attachment {
 
     static final List<String> validExtension = Arrays.asList(".pdf");
+
+    @Id
+    @Column(name = "PRODUCT_SKETCH_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID")

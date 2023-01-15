@@ -20,6 +20,11 @@ public class ProductImage extends Attachment {
 
     static final List<String> validExtension = Arrays.asList(".jpg", ".png", ".gif");
 
+    @Id
+    @Column(name = "PRODUCT_IMAEG_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
