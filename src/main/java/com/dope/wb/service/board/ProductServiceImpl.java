@@ -1,5 +1,6 @@
 package com.dope.wb.service.board;
 
+import com.dope.wb.domain.board.library.Library;
 import com.dope.wb.domain.board.product.Product;
 import com.dope.wb.domain.board.attachment.ProductImage;
 import com.dope.wb.domain.board.attachment.ProductSketch;
@@ -86,7 +87,27 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductDetailResponseDto> readProductList(Pageable pageable) {
-        return null;
+        Page<Product> result = productRepository.findAll(pageable);
+
+        return result.map(product -> {
+            List<String> imagesUrlList =
+                    productImageRepository.findAllByProduct(product)
+                    .stream()
+                    .map(ProductImage::getPath)
+                    .collect(Collectors.toList());
+
+            ProductSketch sketch = productSketchRepository.findByProduct(product);
+
+            return ProductDetailResponseDto.builder()
+                    .id(product.getId())
+                    .serial(product.getSerial())
+                    .content(product.getContent())
+                    .productCategory(product.getProductCategory())
+                    .view(product.getView())
+                    .imageList(imagesUrlList)
+                    .sketch(sketch==null? null:sketch.getPath())
+                    .build();
+        });
     }
 
     private void uploadProductImages(Product product, List<MultipartFile> images) {
