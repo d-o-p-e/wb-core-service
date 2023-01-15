@@ -17,7 +17,7 @@ import lombok.Getter;
 public class Product extends Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID")
     private Long id;
 

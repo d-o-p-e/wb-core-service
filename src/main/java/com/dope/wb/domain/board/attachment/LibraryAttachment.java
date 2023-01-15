@@ -1,20 +1,24 @@
 package com.dope.wb.domain.board.attachment;
 
 import com.dope.wb.domain.board.library.Library;
+import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Getter
 @Entity
 public class LibraryAttachment extends Attachment{
 
     static final List<String> validExtension = null;
+
+    @Id
+    @Column(name = "LIBRARY_ATTACHMENT_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LIBRARY_ID")

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Library extends Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "LIBRARY_ID")
     private Long id;
 
