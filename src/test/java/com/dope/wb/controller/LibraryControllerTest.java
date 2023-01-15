@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -43,11 +43,30 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void readProductDetailSuccess() throws Exception {
+    public void readLibraryDetailSuccess() throws Exception {
         Library library = Library.builder()
                 .title("title")
                 .build();
         libraryRepository.save(library);
         mockMvc.perform(get("/library/" + library.getId())).andExpect(status().isOk());
+    }
+
+    @Test
+    public void readLibraryListSuccess() throws Exception {
+        for(int i=0;i<10;i++) {
+            Library library = Library.builder()
+                    .title("title"+i)
+                    .content("content")
+                    .build();
+            libraryRepository.save(library);
+        }
+        mockMvc.perform(get("/library/list?size=3&page=0"))
+                .andExpect(jsonPath("$.numberOfElements").value(3));
+        mockMvc.perform(get("/library/list?size=3&page=1"))
+                .andExpect(jsonPath("$.numberOfElements").value(3));
+        mockMvc.perform(get("/library/list?size=3&page=2"))
+                .andExpect(jsonPath("$.numberOfElements").value(3));
+        mockMvc.perform(get("/library/list?size=3&page=3"))
+                .andExpect(jsonPath("$.numberOfElements").value(1));
     }
 }
