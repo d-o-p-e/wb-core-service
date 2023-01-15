@@ -95,6 +95,22 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Page<LibraryDetailResponseDto> readLibraryList(Pageable pageable) {
-        return null;
+        Page<Library> result = libraryRepository.findAll(pageable);
+
+        return result.map(library -> {
+            List<String> attachmentUrlList =
+                    libraryAttachmentRepository.findAllByLibrary(library)
+                    .stream()
+                    .map(LibraryAttachment::getPath)
+                    .collect(Collectors.toList());
+
+            return LibraryDetailResponseDto.builder()
+            .id(library.getId())
+            .title(library.getTitle())
+            .content(library.getContent())
+            .view(library.getView())
+            .attachmentList(attachmentUrlList)
+            .build();
+        });
     }
 }

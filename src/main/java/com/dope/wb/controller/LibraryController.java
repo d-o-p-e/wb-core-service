@@ -4,6 +4,8 @@ import com.dope.wb.dto.LibraryCreateRequestDto;
 import com.dope.wb.dto.LibraryDetailResponseDto;
 import com.dope.wb.service.board.LibraryServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,12 @@ public class LibraryController {
     public ResponseEntity<LibraryDetailResponseDto> readProduct(@PathVariable Long libraryId) {
         LibraryDetailResponseDto libraryDetailResponseDto = libraryService.readDetail(libraryId);
         return ResponseEntity.ok().body(libraryDetailResponseDto);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<LibraryDetailResponseDto>> readList(Pageable pageable) {
+        Page<LibraryDetailResponseDto> libraryList = libraryService.readLibraryList(pageable);
+        return ResponseEntity.ok().body(libraryList);
     }
 
 }
