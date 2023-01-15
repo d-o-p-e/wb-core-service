@@ -4,6 +4,8 @@ import com.dope.wb.dto.ProductDetailResponseDto;
 import com.dope.wb.dto.ProductCreateRequestDto;
 import com.dope.wb.service.board.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +27,11 @@ public class ProductController {
     public ResponseEntity<ProductDetailResponseDto> readProduct(@PathVariable String serial) {
         ProductDetailResponseDto productDetailResponseDto = productService.readDetail(serial);
         return ResponseEntity.ok().body(productDetailResponseDto);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<ProductDetailResponseDto>> readProductList(Pageable pageable) {
+        Page<ProductDetailResponseDto> productList = productService.readProductList(pageable);
+        return ResponseEntity.ok().body(productList);
     }
 }
